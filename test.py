@@ -7,8 +7,10 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
-
-List = []
+from ListPeople import ListPeople
+from People import People
+import csv
+List = ListPeople()
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -73,9 +75,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        global List 
-
+        QtCore.QMetaObject.connectSlotsByName(MainWindow) 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Page1"))
@@ -90,8 +90,15 @@ class Ui_MainWindow(object):
     def get_Info(self):
         global List  # Sử dụng biến toàn cục List
         # Lấy thông tin từ các trường dữ liệu và thêm vào biến toàn cục List
-        List.append([self.EmCode.text(), self.Name.text(), self.Date.text(), self.Pos.text(), self.Sal.text()])  
-
+        NewOne = People(str(self.EmCode.text()), str(self.Name.text()), str(self.Date.text()), str(self.Pos.text()), str(self.Sal.text()))  
+        NewList = NewOne.to_list()
+        print(NewList)
+        file = open('my.csv', 'a', newline = '', encoding='utf-8')
+        writer = csv.writer(file)
+        writer.writerows([NewList])
+        file.close()
+        List.List_People.append(NewOne) 
+        
 
 if __name__ == "__main__":
     import sys

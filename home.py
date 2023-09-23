@@ -97,7 +97,6 @@ class Ui_MainWindow(object):
         self.menubar.setGeometry(QtCore.QRect(0, 0, 796, 26))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
-
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -118,7 +117,7 @@ class Ui_MainWindow(object):
         self.Page5.setText(_translate("MainWindow", "M5"))
         self.Page5_2.setText(_translate("MainWindow", "M6"))
         self.label.setText(_translate("MainWindow", "Resource management"))
-
+        
 
 if __name__ == "__main__":
     import sys

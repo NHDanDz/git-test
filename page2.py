@@ -7,6 +7,10 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets 
+from ListPeople import ListPeople
+from People import People
+
+List = ListPeople()
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow, List):
@@ -78,21 +82,28 @@ class Ui_MainWindow(object):
         item = self.tableWidget.horizontalHeaderItem(4)
         item.setText(_translate("MainWindow", "Salary"))
 
-    def loaddata(self, people):
+    def loaddata(self, List):
         #people = [[11,"hai dang", "10/10/2003", "director", "100$"],[12,"hai do", "11/10/2003", "ditor", "1000$"] ]
-        row = int(0)
-        self.tableWidget.setRowCount(len(people))
-        Row = len(people)
-        Column = len(people[0])
-        for i in range(Row):
-            for j in range(Column):
-                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(people[i][j])))
-                
+        C = 0 
+        self.tableWidget.setRowCount(List.NumPeople())
+        for person in List.List_People:
+            # print("Employee Code:", str(person.EmCode))
+            # print("Name:", str(person.Name))
+            # print("Date:", str(person.Date))
+            # print("Position:", str(person.Pos))
+            # print("Salary:", str(person.Sal))
+            self.tableWidget.setItem(C, 0, QtWidgets.QTableWidgetItem(str(person.EmCode)))
+            self.tableWidget.setItem(C, 1, QtWidgets.QTableWidgetItem(str(person.Name)))
+            self.tableWidget.setItem(C, 2, QtWidgets.QTableWidgetItem(str(person.Date)))
+            self.tableWidget.setItem(C, 3, QtWidgets.QTableWidgetItem(str(person.Pos)))
+            self.tableWidget.setItem(C, 4, QtWidgets.QTableWidgetItem(str(person.Sal)))
+            C = C + 1 
+             
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
+    ui.setupUi(MainWindow, List)
     MainWindow.show()
     sys.exit(app.exec())
